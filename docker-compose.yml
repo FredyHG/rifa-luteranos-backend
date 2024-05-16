@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      POSTGRES_DB: rifa-luterano-db
+      POSTGRES_USER: ${DB_DEFAULT_USER:admin}
+      POSTGRES_PASSWORD: ${DB_DEFAULT_USER:admin}
+    ports:
+      - "5432:5432"
+    volumes:
+      - luteranos_data:/var/lib/postgresql
+
+volumes:
+  luteranos_data:
