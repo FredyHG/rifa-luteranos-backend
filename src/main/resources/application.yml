@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: rifa-luteranos-backend
+
+  datasource:
+    url: jdbc:postgresql://db:5432/rifa-luterano-db
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
