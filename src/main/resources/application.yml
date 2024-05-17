@@ -3,7 +3,7 @@ spring:
     name: rifa-luteranos-backend
 
   datasource:
-    url: jdbc:postgresql://db:5432/rifa-luterano-db
-    username: admin
-    password: admin
+    url: jdbc:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres
+    username: postgres.jylhdsqoojmbskzpdmvp
+    password: PLNcqhW33osPzVnn
     driver-class-name: org.postgresql.Driver
