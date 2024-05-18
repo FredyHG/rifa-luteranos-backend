@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
+@Table(name = "tb_buyer")
 @Entity
 public class Buyer {
 
@@ -15,15 +16,19 @@ public class Buyer {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "number")
     private String number;
 
+    @Column(name = "cpf")
     private String cpf;
 
     @OneToMany(mappedBy = "buyer", cascade = CascadeType.ALL)
     private List<Raffle> raffles;
 
+    @Column(name = "create_at")
     private LocalDateTime createAt;
 
     @PrePersist

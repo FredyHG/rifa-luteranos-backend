@@ -1,15 +1,13 @@
 package dev.fredyhg.rifaluteranosbackend.models;
 
 import dev.fredyhg.rifaluteranosbackend.enums.Role;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.UUID;
 
 @Data
+@Table(name = "tb_admin")
 @Entity
 public class Admin {
 
@@ -17,9 +15,13 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(name = "username")
     private String username;
 
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
     private Role role;
 }
