@@ -8,6 +8,10 @@ spring:
     password: PLNcqhW33osPzVnn
     driver-class-name: org.postgresql.Driver
 
-imgur:
-  secret:
-    clientId: 9522ec40ca7240c
+app:
+  imgur:
+    secret:
+      clientId: CLIENTID IMGUR
+  mercadopago:
+    secret:
+      apiKey: TOKEN
