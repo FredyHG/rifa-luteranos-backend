@@ -14,11 +14,11 @@ public class ImageService {
 
     private final ImageClient imageClient;
 
-    @Value("${imgur.secret.clientId}")
+    @Value("${app.imgur.secret.clientId}")
     private String clientId;
 
     public ImageResponse uploadImage(String imageBase64, String title) {
-        return imageClient.uploadImage(clientId, TYPE, imageBase64, title);
+        return imageClient.uploadImage("Client-ID " + clientId, TYPE, imageBase64, title);
     }
 
 }

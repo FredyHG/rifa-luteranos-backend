@@ -11,7 +11,7 @@ spring:
 app:
   imgur:
     secret:
-      clientId: CLIENTID IMGUR
+      clientId: CLIENTID
   mercadopago:
     secret:
-      apiKey: TOKEN
+      apiKey: TOKENMP

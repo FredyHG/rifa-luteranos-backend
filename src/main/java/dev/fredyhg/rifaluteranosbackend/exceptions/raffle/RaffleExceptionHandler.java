@@ -45,7 +45,12 @@ public class RaffleExceptionHandler {
 
     static {
 
+        // HTTP STATUS 404
+        statusTable.put(RaffleNotFound.class.getSimpleName(), HttpStatus.NOT_FOUND);
+
         // HTTP STATUS 409
         statusTable.put(RaffleAlreadyExists.class.getSimpleName(), HttpStatus.CONFLICT);
+        statusTable.put(RaffleAlreadySold.class.getSimpleName(), HttpStatus.CONFLICT);
+        statusTable.put(RaffleInvalidStatus.class.getSimpleName(), HttpStatus.CONFLICT);
     }
 }
