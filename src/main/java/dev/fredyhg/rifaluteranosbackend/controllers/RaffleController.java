@@ -1,7 +1,11 @@
 package dev.fredyhg.rifaluteranosbackend.controllers;
 
+import dev.fredyhg.rifaluteranosbackend.dto.BuyRaffleRequest;
+import dev.fredyhg.rifaluteranosbackend.dto.BuyRaffleResponse;
 import dev.fredyhg.rifaluteranosbackend.dto.ResponseMessage;
 import dev.fredyhg.rifaluteranosbackend.dto.image.RafflePostRequest;
+import dev.fredyhg.rifaluteranosbackend.dto.mercadopago.MercadoPagoResponse;
+import dev.fredyhg.rifaluteranosbackend.services.MercadoPagoService;
 import dev.fredyhg.rifaluteranosbackend.services.RaffleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +23,7 @@ import java.util.Date;
 public class RaffleController {
 
     private final RaffleService raffleService;
+    private final MercadoPagoService mercadoPagoService;
 
     @PostMapping("/create")
     public ResponseEntity<ResponseMessage> createRaffle(@RequestBody RafflePostRequest rafflePostRequest){
@@ -34,6 +39,27 @@ public class RaffleController {
                         .timestamp(new Date())
                         .build()
         );
+    }
+
+
+    @PostMapping("/callback")
+    public ResponseEntity<ResponseMessage> mercadoPagoApiCallBack(@RequestBody MercadoPagoResponse mercadoPagoResponse) {
+
+        mercadoPagoService.checkPayment(mercadoPagoResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                ResponseMessage
+                        .builder()
+                        .statusCode(200)
+                        .message("OK")
+                        .description("OK")
+                        .timestamp(new Date())
+                        .build()
+        );
+    }
+
+    @PostMapping("/buyRaffle")
+    public ResponseEntity<BuyRaffleResponse> buyRaffle(@RequestBody BuyRaffleRequest buyRaffleRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(raffleService.buyRaffle(buyRaffleRequest));
     }
 
 }
