@@ -57,7 +57,7 @@ public class RaffleController {
         );
     }
 
-    @PostMapping("/buyRaffle")
+    @PostMapping("/buy-raffle")
     public ResponseEntity<BuyRaffleResponse> buyRaffle(@RequestBody BuyRaffleRequest buyRaffleRequest) {
         return ResponseEntity.status(HttpStatus.OK).body(raffleService.buyRaffle(buyRaffleRequest));
     }
