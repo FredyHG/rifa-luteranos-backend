@@ -5,8 +5,8 @@ import dev.fredyhg.rifaluteranosbackend.dto.BuyRaffleResponse;
 import dev.fredyhg.rifaluteranosbackend.dto.ResponseMessage;
 import dev.fredyhg.rifaluteranosbackend.dto.image.RafflePostRequest;
 import dev.fredyhg.rifaluteranosbackend.dto.mercadopago.MercadoPagoResponse;
-import dev.fredyhg.rifaluteranosbackend.services.MercadoPagoService;
-import dev.fredyhg.rifaluteranosbackend.services.RaffleService;
+import dev.fredyhg.rifaluteranosbackend.services.impl.MercadoPagoServiceImpl;
+import dev.fredyhg.rifaluteranosbackend.services.impl.RaffleServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +22,13 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class RaffleController {
 
-    private final RaffleService raffleService;
-    private final MercadoPagoService mercadoPagoService;
+    private final RaffleServiceImpl raffleServiceImpl;
+    private final MercadoPagoServiceImpl mercadoPagoServiceImpl;
 
     @PostMapping("/create")
     public ResponseEntity<ResponseMessage> createRaffle(@RequestBody RafflePostRequest rafflePostRequest){
 
-        raffleService.createRaffle(rafflePostRequest);
+        raffleServiceImpl.createRaffle(rafflePostRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 ResponseMessage
@@ -45,7 +45,7 @@ public class RaffleController {
     @PostMapping("/callback")
     public ResponseEntity<ResponseMessage> mercadoPagoApiCallBack(@RequestBody MercadoPagoResponse mercadoPagoResponse) {
 
-        mercadoPagoService.checkPayment(mercadoPagoResponse);
+        mercadoPagoServiceImpl.checkPayment(mercadoPagoResponse);
         return ResponseEntity.status(HttpStatus.CREATED).body(
                 ResponseMessage
                         .builder()
@@ -59,7 +59,7 @@ public class RaffleController {
 
     @PostMapping("/buyRaffle")
     public ResponseEntity<BuyRaffleResponse> buyRaffle(@RequestBody BuyRaffleRequest buyRaffleRequest) {
-        return ResponseEntity.status(HttpStatus.OK).body(raffleService.buyRaffle(buyRaffleRequest));
+        return ResponseEntity.status(HttpStatus.OK).body(raffleServiceImpl.buyRaffle(buyRaffleRequest));
     }
 
 }
