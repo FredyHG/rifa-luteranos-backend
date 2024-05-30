@@ -13,6 +13,8 @@ import dev.fredyhg.rifaluteranosbackend.models.Buyer;
 import dev.fredyhg.rifaluteranosbackend.models.Raffle;
 import dev.fredyhg.rifaluteranosbackend.repositories.BuyerRepository;
 import dev.fredyhg.rifaluteranosbackend.repositories.RaffleRepository;
+import dev.fredyhg.rifaluteranosbackend.services.ImageService;
+import dev.fredyhg.rifaluteranosbackend.services.MercadoPagoService;
 import dev.fredyhg.rifaluteranosbackend.services.RaffleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,8 +26,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class RaffleServiceImpl implements RaffleService {
 
-    private final ImageServiceImpl imageServiceImpl;
-    private final MercadoPagoServiceImpl mercadoPagoServiceImpl;
+    private final ImageService imageService;
+    private final MercadoPagoService mercadoPagoService;
     private final RaffleRepository raffleRepository;
     private final BuyerRepository buyerRepository;
 
@@ -39,7 +41,7 @@ public class RaffleServiceImpl implements RaffleService {
 
         Raffle raffleToBeSaved = RaffleMapper.rafflePostRequestToRaffle(rafflePostRequest);
 
-        ImageResponse imageResponse = imageServiceImpl.uploadImage(rafflePostRequest.getImageBase64(), rafflePostRequest.getTitle());
+        ImageResponse imageResponse = imageService.uploadImage(rafflePostRequest.getImageBase64(), rafflePostRequest.getTitle());
 
         raffleToBeSaved.setImageUrl(imageResponse.getData().getLink());
 
@@ -57,7 +59,7 @@ public class RaffleServiceImpl implements RaffleService {
         Buyer buyer = buyerRepository.findByCpf(buyRaffleRequest.getBuyer().getCpf())
                 .orElseGet(() -> createBuyerIfNotExist(buyRaffleRequest.getBuyer()));
 
-        Payment pix = mercadoPagoServiceImpl.createPix(raffle, buyer);
+        Payment pix = mercadoPagoService.createPix(raffle, buyer);
 
         return BuyRaffleResponse
                 .builder()
